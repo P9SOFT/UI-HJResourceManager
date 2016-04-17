@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="107" id="DsH-A1-dbV" userLabel="SampleTableViewCell" customClass="SampleTableViewCell" customModule="Sample" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="473" height="107"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DsH-A1-dbV" id="JQb-1n-1iQ">
+                <rect key="frame" x="0.0" y="0.0" width="473" height="106"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="characterWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUV-Pt-cNH" userLabel="UrlLabel">
+                        <rect key="frame" x="114" y="8" width="291" height="86"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xfa-Eb-hqL" userLabel="ThumbnailImageView">
+                        <rect key="frame" x="18" y="8" width="86" height="86"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Xfa-Eb-hqL" secondAttribute="height" multiplier="1:1" id="6mg-xu-ZJr"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4eE-MI-dOX" userLabel="helloButton">
+                        <rect key="frame" x="415" y="33" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="9YJ-1t-WFB"/>
+                            <constraint firstAttribute="width" secondItem="4eE-MI-dOX" secondAttribute="height" multiplier="1:1" id="onw-Ed-SZq"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <connections>
+                            <action selector="helloButtonTouchUpInside:" destination="DsH-A1-dbV" eventType="touchUpInside" id="W4R-4E-SzW"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="4eE-MI-dOX" firstAttribute="centerY" secondItem="JQb-1n-1iQ" secondAttribute="centerY" id="0ix-Yi-nk9"/>
+                    <constraint firstItem="BUV-Pt-cNH" firstAttribute="bottom" secondItem="Xfa-Eb-hqL" secondAttribute="bottom" id="J17-pZ-lpq"/>
+                    <constraint firstItem="Xfa-Eb-hqL" firstAttribute="leading" secondItem="JQb-1n-1iQ" secondAttribute="leadingMargin" constant="10" id="Occ-3F-mVr"/>
+                    <constraint firstItem="BUV-Pt-cNH" firstAttribute="trailing" secondItem="4eE-MI-dOX" secondAttribute="leading" constant="-10" id="cXE-x8-VHB"/>
+                    <constraint firstItem="Xfa-Eb-hqL" firstAttribute="top" secondItem="JQb-1n-1iQ" secondAttribute="topMargin" id="dsE-ax-mRc"/>
+                    <constraint firstItem="BUV-Pt-cNH" firstAttribute="leading" secondItem="Xfa-Eb-hqL" secondAttribute="trailing" constant="10" id="kaQ-Ny-WhL"/>
+                    <constraint firstItem="BUV-Pt-cNH" firstAttribute="top" secondItem="Xfa-Eb-hqL" secondAttribute="top" id="n55-ON-qiM"/>
+                    <constraint firstItem="Xfa-Eb-hqL" firstAttribute="height" secondItem="JQb-1n-1iQ" secondAttribute="height" constant="-20" id="s4M-aw-WPP"/>
+                    <constraint firstItem="4eE-MI-dOX" firstAttribute="trailing" secondItem="JQb-1n-1iQ" secondAttribute="trailingMargin" constant="-10" id="vEl-hb-f4E"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="helloButton" destination="4eE-MI-dOX" id="8Gl-Qm-4UA"/>
+                <outlet property="thumbnailImageView" destination="Xfa-Eb-hqL" id="NvW-69-Gon"/>
+                <outlet property="urlLabel" destination="BUV-Pt-cNH" id="cvB-Re-EUq"/>
+            </connections>
+            <point key="canvasLocation" x="316.5" y="317.5"/>
+        </tableViewCell>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+    </objects>
+</document>
