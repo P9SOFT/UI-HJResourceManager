@@ -2,9 +2,10 @@
 //  SampleTableViewCell.swift
 //  Sample
 //
-//  Created by 나태현 on 2016. 2. 11..
-//  Copyright © 2016년 P9 SOFT, Inc. All rights reserved.
+//  Created by Tae Hyun Na on 2016. 2. 11.
+//  Copyright (c) 2014, P9 SOFT, Inc. All rights reserved.
 //
+//  Licensed under the MIT license.
 
 import Foundation
 

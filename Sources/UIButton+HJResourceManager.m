@@ -25,7 +25,7 @@ static char kContentLength;
 
 @implementation UIButton (HJResourceManager)
 
-@dynamic asyncDelivererIssuedId;
+@dynamic hjAsyncDelivererIssuedId;
 @dynamic hjButtonProgressView;
 
 - (void) dealloc
@@ -35,14 +35,14 @@ static char kContentLength;
 
 - (void)asyncHttpDelivererReport:(NSNotification *)notification
 {
-    if( (objc_getAssociatedObject(self, &kResourceKey) == nil) || (self.asyncDelivererIssuedId == 0) || (self.hjButtonProgressView == nil) ) {
+    if( (objc_getAssociatedObject(self, &kResourceKey) == nil) || (self.hjAsyncDelivererIssuedId == 0) || (self.hjButtonProgressView == nil) ) {
         return;
     }
     
     NSDictionary *userInfo = [notification userInfo];
     HJAsyncHttpDelivererStatus status = (HJAsyncHttpDelivererStatus)[[userInfo objectForKey:HJAsyncHttpDelivererParameterKeyStatus] integerValue];
     NSUInteger issuedId = (NSUInteger)[[userInfo objectForKey:HJAsyncHttpDelivererParameterKeyIssuedId] unsignedIntegerValue];
-    if( self.asyncDelivererIssuedId != issuedId ) {
+    if( self.hjAsyncDelivererIssuedId != issuedId ) {
         return;
     }
     
@@ -136,67 +136,17 @@ static char kContentLength;
     }
 }
 
-- (BOOL)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state
+- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion
 {
-    return [self setImageUrl:urlString placeholderImage:placeholderImage forState:state remakerName:nil remakerParameter:nil cipherName:nil];
+    [self setImageUrl:urlString placeholderImage:placeholderImage cutInLine:cutInLine remakerName:nil remakerParameter:nil cipherName:nil forState:state completion:completion];
 }
 
-- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion
+- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion
 {
-    [self setImageUrl:urlString placeholderImage:placeholderImage forState:state remakerName:nil remakerParameter:nil cipherName:nil completion:completion];
+    [self setImageUrl:urlString placeholderImage:placeholderImage cutInLine:cutInLine remakerName:remakerName remakerParameter:remakerParameter cipherName:nil forState:(UIControlState)state completion:completion];
 }
 
-- (BOOL)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter
-{
-    return [self setImageUrl:urlString placeholderImage:placeholderImage forState:state remakerName:remakerName remakerParameter:remakerParameter cipherName:nil];
-}
-
-- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter completion:(HJButtonCompletionBlock)completion
-{
-    [self setImageUrl:urlString placeholderImage:placeholderImage forState:(UIControlState)state remakerName:remakerName remakerParameter:remakerParameter cipherName:nil completion:completion];
-}
-
-- (BOOL)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName
-{
-    if( [urlString length] == 0 ) {
-        return NO;
-    }
-    
-    NSMutableDictionary *resourceQuery = [NSMutableDictionary new];
-    if( resourceQuery == nil ) {
-        return NO;
-    }
-    [resourceQuery setObject:urlString forKey:HJResourceQueryKeyRequestValue];
-    if( [remakerName length] > 0 ) {
-        [resourceQuery setObject:remakerName forKey:HJResourceQueryKeyRemakerName];
-        if( remakerParameter != nil ) {
-            [resourceQuery setObject:remakerParameter forKey:HJResourceQueryKeyRemakerParameter];
-        }
-    }
-    if( [cipherName length] > 0 ) {
-        [resourceQuery setObject:cipherName forKey:HJResourceQueryKeyCipherName];
-    }
-    [resourceQuery setObject:@(state) forKey:kControlStateKey];
-    NSString *resourceKey = [[HJResourceManager defaultManager] resourceKeyStringFromResourceQuery:[NSDictionary dictionaryWithDictionary:resourceQuery]];
-    if( resourceKey == nil ) {
-        [self setImage:nil forState:state];
-        return NO;
-    }
-    objc_setAssociatedObject(self, &kResourceKey, resourceKey, OBJC_ASSOCIATION_RETAIN);
-    if( placeholderImage != nil ) {
-        [self setImage:placeholderImage forState:state];
-    }
-    
-    if( [objc_getAssociatedObject(self, &kResourceManagerObserving) boolValue] == NO ) {
-        objc_setAssociatedObject(self, &kResourceManagerObserving, @(1), OBJC_ASSOCIATION_RETAIN);
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resourceManagerReport:) name:HJResourceManagerNotification object:nil];
-    }
-    [[HJResourceManager defaultManager] resourceForQuery:resourceQuery completion:nil];
-    
-    return YES;
-}
-
-- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName completion:(HJButtonCompletionBlock)completion
+- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion
 {
     if( [urlString length] == 0 ) {
         if( completion != nil ) {
@@ -245,7 +195,7 @@ static char kContentLength;
         objc_setAssociatedObject(self, &kResourceManagerObserving, @(1), OBJC_ASSOCIATION_RETAIN);
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resourceManagerReport:) name:HJResourceManagerNotification object:nil];
     }
-    [[HJResourceManager defaultManager] resourceForQuery:resourceQuery completion:^(NSDictionary *resultDict) {
+    [[HJResourceManager defaultManager] resourceForQuery:resourceQuery cutInLine:cutInLine completion:^(NSDictionary *resultDict) {
         if( completion != nil ) {
             NSString *resourceKey = [[HJResourceManager defaultManager] resourceKeyStringFromResourceQuery:[resultDict objectForKey:HJResourceManagerParameterKeyResourceQuery]];
             NSString *lookingResourceKey = objc_getAssociatedObject(self, &kResourceKey);
@@ -257,68 +207,17 @@ static char kContentLength;
     }];
 }
 
-- (BOOL)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state
+- (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion
 {
-    return [self setBackgroundImageUrl:urlString placeholderImage:placeholderImage forState:state remakerName:nil remakerParameter:nil cipherName:nil];
+    [self setBackgroundImageUrl:urlString placeholderImage:placeholderImage cutInLine:cutInLine remakerName:nil remakerParameter:nil cipherName:nil forState:state completion:completion];
 }
 
-- (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion
+- (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion
 {
-    [self setBackgroundImageUrl:urlString placeholderImage:placeholderImage forState:state remakerName:nil remakerParameter:nil cipherName:nil completion:completion];
+    [self setBackgroundImageUrl:urlString placeholderImage:placeholderImage cutInLine:cutInLine remakerName:remakerName remakerParameter:remakerParameter cipherName:nil forState:(UIControlState)state completion:completion];
 }
 
-- (BOOL)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter
-{
-    return [self setImageUrl:urlString placeholderImage:placeholderImage forState:state remakerName:remakerName remakerParameter:remakerParameter cipherName:nil];
-}
-
-- (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter completion:(HJButtonCompletionBlock)completion
-{
-    [self setBackgroundImageUrl:urlString placeholderImage:placeholderImage forState:(UIControlState)state remakerName:remakerName remakerParameter:remakerParameter cipherName:nil completion:completion];
-}
-
-- (BOOL)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName
-{
-    if( [urlString length] == 0 ) {
-        return NO;
-    }
-    
-    NSMutableDictionary *resourceQuery = [NSMutableDictionary new];
-    if( resourceQuery == nil ) {
-        return NO;
-    }
-    [resourceQuery setObject:urlString forKey:HJResourceQueryKeyRequestValue];
-    if( [remakerName length] > 0 ) {
-        [resourceQuery setObject:remakerName forKey:HJResourceQueryKeyRemakerName];
-        if( remakerParameter != nil ) {
-            [resourceQuery setObject:remakerParameter forKey:HJResourceQueryKeyRemakerParameter];
-        }
-    }
-    if( [cipherName length] > 0 ) {
-        [resourceQuery setObject:cipherName forKey:HJResourceQueryKeyCipherName];
-    }
-    [resourceQuery setObject:@(state) forKey:kControlStateKey];
-    [resourceQuery setObject:@(1) forKey:kBackgroundImageKey];
-    NSString *resourceKey = [[HJResourceManager defaultManager] resourceKeyStringFromResourceQuery:[NSDictionary dictionaryWithDictionary:resourceQuery]];
-    if( resourceKey == nil ) {
-        [self setBackgroundImage:nil forState:state];
-        return NO;
-    }
-    objc_setAssociatedObject(self, &kResourceKey, resourceKey, OBJC_ASSOCIATION_RETAIN);
-    if( placeholderImage != nil ) {
-        [self setBackgroundImage:placeholderImage forState:state];
-    }
-    
-    if( [objc_getAssociatedObject(self, &kResourceManagerObserving) boolValue] == NO ) {
-        objc_setAssociatedObject(self, &kResourceManagerObserving, @(1), OBJC_ASSOCIATION_RETAIN);
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resourceManagerReport:) name:HJResourceManagerNotification object:nil];
-    }
-    [[HJResourceManager defaultManager] resourceForQuery:resourceQuery completion:nil];
-    
-    return YES;
-}
-
-- (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName completion:(HJButtonCompletionBlock)completion
+- (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion
 {
     if( [urlString length] == 0 ) {
         if( completion != nil ) {
@@ -368,7 +267,7 @@ static char kContentLength;
         objc_setAssociatedObject(self, &kResourceManagerObserving, @(1), OBJC_ASSOCIATION_RETAIN);
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resourceManagerReport:) name:HJResourceManagerNotification object:nil];
     }
-    [[HJResourceManager defaultManager] resourceForQuery:resourceQuery completion:^(NSDictionary *resultDict) {
+    [[HJResourceManager defaultManager] resourceForQuery:resourceQuery cutInLine:cutInLine completion:^(NSDictionary *resultDict) {
         if( completion != nil ) {
             NSString *resourceKey = [[HJResourceManager defaultManager] resourceKeyStringFromResourceQuery:[resultDict objectForKey:HJResourceManagerParameterKeyResourceQuery]];
             NSString *lookingResourceKey = objc_getAssociatedObject(self, &kResourceKey);
@@ -380,7 +279,7 @@ static char kContentLength;
     }];
 }
 
-- (NSUInteger)asyncDelivererIssuedId
+- (NSUInteger)hjAsyncDelivererIssuedId
 {
     return [objc_getAssociatedObject(self, &kAsyncDelivererIssuedId) unsignedIntegerValue];
 }

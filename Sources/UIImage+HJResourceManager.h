@@ -13,14 +13,11 @@ typedef void(^HJImageViewCompletionBlock)(UIImage *image, NSString *urlString, N
 
 @interface UIImageView (HJResourceManager)
 
-- (BOOL)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage;
-- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage completion:(HJImageViewCompletionBlock)completion;
-- (BOOL)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter;
-- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter completion:(HJImageViewCompletionBlock)completion;
-- (BOOL)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName;
-- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName completion:(HJImageViewCompletionBlock)completion;
+- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine completion:(HJImageViewCompletionBlock)completion;
+- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter completion:(HJImageViewCompletionBlock)completion;
+- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName completion:(HJImageViewCompletionBlock)completion;
 
-@property (nonatomic, readonly) NSUInteger asyncDelivererIssuedId;
+@property (nonatomic, readonly) NSUInteger hjAsyncDelivererIssuedId;
 @property (nonatomic, strong) id hjImageProgressView;
 
 @end

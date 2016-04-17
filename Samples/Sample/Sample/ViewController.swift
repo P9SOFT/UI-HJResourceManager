@@ -44,8 +44,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let cell:SampleTableViewCell = self.imageListTableView.dequeueReusableCellWithIdentifier("sampleCell")! as! SampleTableViewCell
         cell.urlLabel.text = self.imageList[indexPath.row]
-        cell.thumbnailImageView?.setImageUrl(self.imageList[indexPath.row], placeholderImage:nil, completion:nil)
-        cell.helloButton.setBackgroundImageUrl(self.imageList[indexPath.row], placeholderImage:nil, forState:.Normal, completion:nil)
+        cell.thumbnailImageView?.setImageUrl(self.imageList[indexPath.row], placeholderImage:nil, cutInLine:true, completion:nil)
+        cell.helloButton.setBackgroundImageUrl(self.imageList[indexPath.row], placeholderImage:nil, cutInLine:true, forState:.Normal, completion:nil)
         return cell
     }
     
