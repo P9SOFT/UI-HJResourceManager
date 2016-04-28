@@ -19,7 +19,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         
         for _ in 0  ..< 32  {
-            imageList.append("https://peach.blender.org/wp-content/uploads/poster_rodents_big.jpg?4323d4")
+            imageList.append("http://www.p9soft.com/images/sample.jpg")
         }
         let nibName = UINib(nibName:"SampleTableViewCell", bundle:nil)
         self.imageListTableView.registerNib(nibName, forCellReuseIdentifier:"sampleCell")
