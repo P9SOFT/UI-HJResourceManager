@@ -124,6 +124,7 @@ static char kContentLength;
                 } else {
                     [self setImage:(UIImage *)dataObject forState:state];
                 }
+                [self setNeedsLayout];
             }
             break;
         case HJResourceManagerRequestStatusLoadFailed :
@@ -134,6 +135,26 @@ static char kContentLength;
         default :
             break;
     }
+}
+
+- (void)setImageUrl:(NSString *)urlString
+{
+    [self setImageUrl:urlString placeholderImage:nil cutInLine:NO remakerName:nil remakerParameter:nil cipherName:nil forState:UIControlStateNormal completion:nil];
+}
+
+- (void)setImageUrl:(NSString *)urlString forState:(UIControlState)state
+{
+    [self setImageUrl:urlString placeholderImage:nil cutInLine:NO remakerName:nil remakerParameter:nil cipherName:nil forState:state completion:nil];
+}
+
+- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state
+{
+    [self setImageUrl:urlString placeholderImage:placeholderImage cutInLine:NO remakerName:nil remakerParameter:nil cipherName:nil forState:state completion:nil];
+}
+
+- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state
+{
+    [self setImageUrl:urlString placeholderImage:placeholderImage cutInLine:cutInLine remakerName:nil remakerParameter:nil cipherName:nil forState:state completion:nil];
 }
 
 - (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion
@@ -180,6 +201,7 @@ static char kContentLength;
     NSString *resourceKey = [[HJResourceManager defaultManager] resourceKeyStringFromResourceQuery:resourceQuery];
     if( resourceKey == nil ) {
         [self setImage:nil forState:state];
+        [self setNeedsLayout];
         if( completion != nil ) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(nil, urlString, remakerName, remakerParameter, cipherName, NO);
@@ -190,6 +212,7 @@ static char kContentLength;
     objc_setAssociatedObject(self, &kResourceKey, resourceKey, OBJC_ASSOCIATION_RETAIN);
     if( placeholderImage != nil ) {
         [self setImage:placeholderImage forState:state];
+        [self setNeedsLayout];
     }
     if( [objc_getAssociatedObject(self, &kResourceManagerObserving) boolValue] == NO ) {
         objc_setAssociatedObject(self, &kResourceManagerObserving, @(1), OBJC_ASSOCIATION_RETAIN);
@@ -205,6 +228,26 @@ static char kContentLength;
             completion(image, urlString, remakerName, remakerParameter, cipherName, !stillLooking);
         }
     }];
+}
+
+- (void)setBackgroundImageUrl:(NSString *)urlString
+{
+    [self setBackgroundImageUrl:urlString placeholderImage:nil cutInLine:NO remakerName:nil remakerParameter:nil cipherName:nil forState:UIControlStateNormal completion:nil];
+}
+
+- (void)setBackgroundImageUrl:(NSString *)urlString forState:(UIControlState)state
+{
+    [self setBackgroundImageUrl:urlString placeholderImage:nil cutInLine:NO remakerName:nil remakerParameter:nil cipherName:nil forState:state completion:nil];
+}
+
+- (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state
+{
+    [self setBackgroundImageUrl:urlString placeholderImage:placeholderImage cutInLine:NO remakerName:nil remakerParameter:nil cipherName:nil forState:state completion:nil];
+}
+
+- (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state
+{
+    [self setBackgroundImageUrl:urlString placeholderImage:placeholderImage cutInLine:cutInLine remakerName:nil remakerParameter:nil cipherName:nil forState:state completion:nil];
 }
 
 - (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion
@@ -252,6 +295,7 @@ static char kContentLength;
     NSString *resourceKey = [[HJResourceManager defaultManager] resourceKeyStringFromResourceQuery:resourceQuery];
     if( resourceKey == nil ) {
         [self setBackgroundImage:nil forState:state];
+        [self setNeedsLayout];
         if( completion != nil ) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(nil, urlString, remakerName, remakerParameter, cipherName, NO);
@@ -262,6 +306,7 @@ static char kContentLength;
     objc_setAssociatedObject(self, &kResourceKey, resourceKey, OBJC_ASSOCIATION_RETAIN);
     if( placeholderImage != nil ) {
         [self setBackgroundImage:placeholderImage forState:state];
+        [self setNeedsLayout];
     }
     if( [objc_getAssociatedObject(self, &kResourceManagerObserving) boolValue] == NO ) {
         objc_setAssociatedObject(self, &kResourceManagerObserving, @(1), OBJC_ASSOCIATION_RETAIN);

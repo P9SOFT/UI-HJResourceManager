@@ -19,7 +19,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         
         for _ in 0  ..< 32  {
-            imageList.append("http://www.p9soft.com/images/sample.jpg")
+            imageList.append("https://peach.blender.org/wp-content/uploads/poster_rodents_big.jpg?4323d4")
         }
         let nibName = UINib(nibName:"SampleTableViewCell", bundle:nil)
         self.imageListTableView.registerNib(nibName, forCellReuseIdentifier:"sampleCell")
@@ -44,8 +44,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let cell:SampleTableViewCell = self.imageListTableView.dequeueReusableCellWithIdentifier("sampleCell")! as! SampleTableViewCell
         cell.urlLabel.text = self.imageList[indexPath.row]
-        cell.thumbnailImageView?.setImageUrl(self.imageList[indexPath.row], placeholderImage:nil, cutInLine:true, completion:nil)
-        cell.helloButton.setBackgroundImageUrl(self.imageList[indexPath.row], placeholderImage:nil, cutInLine:true, forState:.Normal, completion:nil)
+        cell.thumbnailImageView?.setImageUrl(self.imageList[indexPath.row], placeholderImage:nil)
+        cell.helloButton.setBackgroundImageUrl(self.imageList[indexPath.row], placeholderImage:nil, forState:.Normal)
         return cell
     }
     

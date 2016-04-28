@@ -12,7 +12,7 @@
 
 #import <Hydra/Hydra.h>
 #import <HJResourceManager/HJResourceManager.h>
-#import "UIImage+HJResourceManager.h"
+#import "UIImageView+HJResourceManager.h"
 #import "UIButton+HJResourceManager.h"
 
 #endif /* Sample_Bridging_Header_h */

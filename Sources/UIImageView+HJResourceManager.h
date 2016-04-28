@@ -1,5 +1,5 @@
 //
-//  UIImage+HJResourceManager.h
+//  UIImageView+HJResourceManager.h
 //	Hydra Jelly Box
 //
 //  Created by Tae Hyun Na on 2013. 11. 5.
@@ -13,6 +13,9 @@ typedef void(^HJImageViewCompletionBlock)(UIImage *image, NSString *urlString, N
 
 @interface UIImageView (HJResourceManager)
 
+- (void)setImageUrl:(NSString *)urlString;
+- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage;
+- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine;
 - (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine completion:(HJImageViewCompletionBlock)completion;
 - (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter completion:(HJImageViewCompletionBlock)completion;
 - (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName completion:(HJImageViewCompletionBlock)completion;

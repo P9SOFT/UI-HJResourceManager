@@ -1,5 +1,5 @@
 //
-//  UIImage+HJResourceManager.h
+//  UIImageView+HJResourceManager.h
 //	Hydra Jelly Box
 //
 //  Created by Tae Hyun Na on 2013. 11. 5.
@@ -11,7 +11,7 @@
 #import <HJAsyncHttpDeliverer/HJAsyncHttpDeliverer.h>
 #import <HJResourceManager/HJResourceManager.h>
 #import "HJProgressViewProtocol.h"
-#import "UIImage+HJResourceManager.h"
+#import "UIImageView+HJResourceManager.h"
 
 static char kResourceManagerObserving;
 static char kAsyncHttpDelivererObserving;
@@ -116,6 +116,7 @@ static char kContentLength;
             dataObject = [userInfo objectForKey:HJResourceManagerParameterKeyDataObject];
             if( [dataObject isKindOfClass:[UIImage class]] == YES ) {
                 self.image = (UIImage *)dataObject;
+                [self setNeedsLayout];
             }
             break;
         case HJResourceManagerRequestStatusLoadFailed :
@@ -126,6 +127,21 @@ static char kContentLength;
         default :
             break;
     }
+}
+
+- (void)setImageUrl:(NSString *)urlString
+{
+    [self setImageUrl:urlString placeholderImage:nil cutInLine:NO remakerName:nil remakerParameter:nil cipherName:nil completion:nil];
+}
+
+- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage
+{
+    [self setImageUrl:urlString placeholderImage:placeholderImage cutInLine:NO remakerName:nil remakerParameter:nil cipherName:nil completion:nil];
+}
+
+- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine
+{
+    [self setImageUrl:urlString placeholderImage:placeholderImage cutInLine:cutInLine remakerName:nil remakerParameter:nil cipherName:nil completion:nil];
 }
 
 - (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine completion:(HJImageViewCompletionBlock)completion
@@ -171,6 +187,7 @@ static char kContentLength;
     NSString *resourceKey = [[HJResourceManager defaultManager] resourceKeyStringFromResourceQuery:resourceQuery];
     if( resourceKey == nil ) {
         self.image = nil;
+        [self setNeedsLayout];
         if( completion != nil ) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(nil, urlString, remakerName, remakerParameter, cipherName, NO);
@@ -181,6 +198,7 @@ static char kContentLength;
     objc_setAssociatedObject(self, &kResourceKey, resourceKey, OBJC_ASSOCIATION_RETAIN);
     if( placeholderImage != nil ) {
         self.image = placeholderImage;
+        [self setNeedsLayout];
     }
     if( [objc_getAssociatedObject(self, &kResourceManagerObserving) boolValue] == NO ) {
         objc_setAssociatedObject(self, &kResourceManagerObserving, @(1), OBJC_ASSOCIATION_RETAIN);

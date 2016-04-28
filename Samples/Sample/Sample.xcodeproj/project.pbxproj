@@ -14,7 +14,7 @@
 		0232E3511C6C208A00520F75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0232E34F1C6C208A00520F75 /* LaunchScreen.storyboard */; };
 		0232E35C1C6C208A00520F75 /* SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232E35B1C6C208A00520F75 /* SampleTests.swift */; };
 		0232E3671C6C208A00520F75 /* SampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232E3661C6C208A00520F75 /* SampleUITests.swift */; };
-		0232E3781C6C216C00520F75 /* UIImage+HJResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0232E3771C6C216C00520F75 /* UIImage+HJResourceManager.m */; };
+		0232E3781C6C216C00520F75 /* UIImageView+HJResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0232E3771C6C216C00520F75 /* UIImageView+HJResourceManager.m */; };
 		0232E37B1C6C8D2600520F75 /* SampleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232E37A1C6C8D2600520F75 /* SampleTableViewCell.swift */; };
 		0232E37D1C6C8E9A00520F75 /* SampleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0232E37C1C6C8E9A00520F75 /* SampleTableViewCell.xib */; };
 		7F9BA26DFEC60ECDEDB08D3D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA854AD69682D9085BE396D /* libPods.a */; };
@@ -53,8 +53,8 @@
 		0232E3661C6C208A00520F75 /* SampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUITests.swift; sourceTree = "<group>"; };
 		0232E3681C6C208A00520F75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0232E3751C6C216C00520F75 /* Sample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sample-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
-		0232E3761C6C216C00520F75 /* UIImage+HJResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+HJResourceManager.h"; path = "../../Sources/UIImage+HJResourceManager.h"; sourceTree = "<group>"; };
-		0232E3771C6C216C00520F75 /* UIImage+HJResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+HJResourceManager.m"; path = "../../Sources/UIImage+HJResourceManager.m"; sourceTree = "<group>"; };
+		0232E3761C6C216C00520F75 /* UIImageView+HJResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+HJResourceManager.h"; path = "../../Sources/UIImageView+HJResourceManager.h"; sourceTree = "<group>"; };
+		0232E3771C6C216C00520F75 /* UIImageView+HJResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+HJResourceManager.m"; path = "../../Sources/UIImageView+HJResourceManager.m"; sourceTree = "<group>"; };
 		0232E37A1C6C8D2600520F75 /* SampleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTableViewCell.swift; sourceTree = "<group>"; };
 		0232E37C1C6C8E9A00520F75 /* SampleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SampleTableViewCell.xib; sourceTree = "<group>"; };
 		3238C2C38EFD48712C3EB93E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -151,8 +151,8 @@
 		0232E3741C6C214800520F75 /* UI+HJResourceManager */ = {
 			isa = PBXGroup;
 			children = (
-				0232E3761C6C216C00520F75 /* UIImage+HJResourceManager.h */,
-				0232E3771C6C216C00520F75 /* UIImage+HJResourceManager.m */,
+				0232E3761C6C216C00520F75 /* UIImageView+HJResourceManager.h */,
+				0232E3771C6C216C00520F75 /* UIImageView+HJResourceManager.m */,
 				AC91027B1CC3585E00745557 /* UIButton+HJResourceManager.h */,
 				AC91027C1CC3585E00745557 /* UIButton+HJResourceManager.m */,
 				AC91027E1CC358B000745557 /* HJProgressViewProtocol.h */,
@@ -362,7 +362,7 @@
 			files = (
 				0232E3491C6C208A00520F75 /* ViewController.swift in Sources */,
 				0232E37B1C6C8D2600520F75 /* SampleTableViewCell.swift in Sources */,
-				0232E3781C6C216C00520F75 /* UIImage+HJResourceManager.m in Sources */,
+				0232E3781C6C216C00520F75 /* UIImageView+HJResourceManager.m in Sources */,
 				0232E3471C6C208A00520F75 /* AppDelegate.swift in Sources */,
 				AC91027D1CC3585E00745557 /* UIButton+HJResourceManager.m in Sources */,
 			);
