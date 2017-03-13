@@ -216,6 +216,11 @@ static char kContentLength;
     }];
 }
 
+- (void)cancel
+{
+    objc_setAssociatedObject(self, &kResourceKey, nil, OBJC_ASSOCIATION_RETAIN);
+}
+
 - (NSUInteger)hjAsyncDelivererIssuedId
 {
     return [objc_getAssociatedObject(self, &kAsyncDelivererIssuedId) unsignedIntegerValue];

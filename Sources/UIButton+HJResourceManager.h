@@ -29,6 +29,8 @@ typedef void(^HJButtonCompletionBlock)(UIImage *image, NSString *urlString, NSSt
 - (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion;
 - (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion;
 
+- (void)cancel;
+
 @property (nonatomic, readonly) NSUInteger hjAsyncDelivererIssuedId;
 @property (nonatomic, strong) id hjButtonProgressView;
 

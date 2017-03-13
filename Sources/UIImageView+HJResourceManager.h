@@ -19,6 +19,7 @@ typedef void(^HJImageViewCompletionBlock)(UIImage *image, NSString *urlString, N
 - (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine completion:(HJImageViewCompletionBlock)completion;
 - (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter completion:(HJImageViewCompletionBlock)completion;
 - (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName completion:(HJImageViewCompletionBlock)completion;
+- (void)cancel;
 
 @property (nonatomic, readonly) NSUInteger hjAsyncDelivererIssuedId;
 @property (nonatomic, strong) id hjImageProgressView;
