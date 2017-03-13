@@ -12,7 +12,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet var imageListTableView:UITableView!
-    private var imageList:[String] = []
+    fileprivate var imageList:[String] = []
     
     override func viewDidLoad() {
         
@@ -22,7 +22,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             imageList.append("http://www.p9soft.com/images/sample.jpg")
         }
         let nibName = UINib(nibName:"SampleTableViewCell", bundle:nil)
-        self.imageListTableView.registerNib(nibName, forCellReuseIdentifier:"sampleCell")
+        self.imageListTableView.register(nibName, forCellReuseIdentifier:"sampleCell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,22 +30,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return self.imageList.count
     }
     
-    func  tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func  tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return 80
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell:SampleTableViewCell = self.imageListTableView.dequeueReusableCellWithIdentifier("sampleCell")! as! SampleTableViewCell
+        let cell:SampleTableViewCell = self.imageListTableView.dequeueReusableCell(withIdentifier: "sampleCell")! as! SampleTableViewCell
         cell.urlLabel.text = self.imageList[indexPath.row]
         cell.thumbnailImageView?.setImageUrl(self.imageList[indexPath.row], placeholderImage:nil)
-        cell.helloButton.setBackgroundImageUrl(self.imageList[indexPath.row], placeholderImage:nil, forState:.Normal)
+        cell.helloButton.setBackgroundImageUrl(self.imageList[indexPath.row], placeholderImage:nil, for:UIControlState())
         return cell
     }
     

@@ -17,11 +17,11 @@ class SampleTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         
-        helloButton?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        helloButton?.layer.borderColor = UIColor.lightGray.cgColor
         helloButton?.layer.borderWidth = 3.0
     }
     
-    @IBAction func helloButtonTouchUpInside(sender: AnyObject) {
+    @IBAction func helloButtonTouchUpInside(_ sender: AnyObject) {
         
         print("hello, button!")
     }
