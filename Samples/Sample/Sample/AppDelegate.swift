@@ -17,21 +17,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // add a work to hydra
-        if( Hydra.default()?.addCommonWorker() == false ) {
+        if( Hydra.default().addCommonWorker() == false ) {
             return false
         }
         
         // standby resource manager and bind to hydra
         let repositoryPath: String = NSSearchPathForDirectoriesInDomains(.documentationDirectory, .userDomainMask, true)[0] + "/rsrc_repo"
-        if HJResourceManager.default()?.standby(withRepositoryPath: repositoryPath, localJobWorkerName:HydraCommonWorkerName, remoteJobWorkerName: HydraCommonWorkerName) == false {
+        if HJResourceManager.default().standby(withRepositoryPath: repositoryPath, localJobWorkerName:HydraCommonWorkerName, remoteJobWorkerName: HydraCommonWorkerName) == false {
             return false
         }
-        if HJResourceManager.default()?.bind(toHydra: Hydra.default()) == false {
+        if HJResourceManager.default().bind(toHydra: Hydra.default()) == false {
             return false
         }
         
         // start hydra
-        Hydra.default()?.startAllWorkers()
+        Hydra.default().startAllWorkers()
         
         return true
     }
