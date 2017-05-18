@@ -36,9 +36,9 @@ static char kContentLength;
         return;
     }
     
-    NSDictionary *userInfo = [notification userInfo];
-    HJAsyncHttpDelivererStatus status = (HJAsyncHttpDelivererStatus)[[userInfo objectForKey:HJAsyncHttpDelivererParameterKeyStatus] integerValue];
-    NSUInteger issuedId = (NSUInteger)[[userInfo objectForKey:HJAsyncHttpDelivererParameterKeyIssuedId] unsignedIntegerValue];
+    NSDictionary *userInfo = notification.userInfo;
+    HJAsyncHttpDelivererStatus status = (HJAsyncHttpDelivererStatus)[userInfo[HJAsyncHttpDelivererParameterKeyStatus] integerValue];
+    NSUInteger issuedId = (NSUInteger)[userInfo[HJAsyncHttpDelivererParameterKeyIssuedId] unsignedIntegerValue];
     if( self.hjAsyncDelivererIssuedId != issuedId ) {
         return;
     }
@@ -46,19 +46,19 @@ static char kContentLength;
     switch( status ) {
         case HJAsyncHttpDelivererstatusConnected :
             if( [self.hjImageProgressView respondsToSelector:@selector(hjProgressViewConnected:contentLength:)] == YES ) {
-                NSNumber *contentLengthNumber = [userInfo objectForKey:HJAsyncHttpDelivererParameterKeyContentLength];
+                NSNumber *contentLengthNumber = userInfo[HJAsyncHttpDelivererParameterKeyContentLength];
                 objc_setAssociatedObject(self, &kContentLength, contentLengthNumber, OBJC_ASSOCIATION_RETAIN);
-                [self.hjImageProgressView hjProgressViewConnected:self contentLength:[contentLengthNumber unsignedIntegerValue]];
+                [self.hjImageProgressView hjProgressViewConnected:self contentLength:contentLengthNumber.unsignedIntegerValue];
             }
             break;
         case HJAsyncHttpDelivererStatusTransfering :
             if( [self.hjImageProgressView respondsToSelector:@selector(hjProgressViewTransfering:transferLength:contentLength:)] == YES ) {
                 NSUInteger contentLength = [objc_getAssociatedObject(self, &kContentLength) unsignedIntegerValue];
-                NSUInteger tranferLength = [[userInfo objectForKey:HJAsyncHttpDelivererParameterKeyAmountTransferedLength] unsignedIntegerValue];
+                NSUInteger tranferLength = [userInfo[HJAsyncHttpDelivererParameterKeyAmountTransferedLength] unsignedIntegerValue];
                 if( contentLength <= 0 ) {
-                    NSNumber *contentLengthNumber = [userInfo objectForKey:HJAsyncHttpDelivererParameterKeyContentLength];
+                    NSNumber *contentLengthNumber = userInfo[HJAsyncHttpDelivererParameterKeyContentLength];
                     objc_setAssociatedObject(self, &kContentLength, contentLengthNumber, OBJC_ASSOCIATION_RETAIN);
-                    contentLength = [contentLengthNumber unsignedIntegerValue];
+                    contentLength = contentLengthNumber.unsignedIntegerValue;
                 }
                 [self.hjImageProgressView hjProgressViewTransfering:self transferLength:tranferLength contentLength:contentLength];
             }
@@ -96,24 +96,24 @@ static char kContentLength;
         return;
     }
     
-    NSDictionary *userInfo = [notification userInfo];
-    NSDictionary *resourceQuery = [userInfo objectForKey:HJResourceManagerParameterKeyResourceQuery];
-    NSString *resourceKey = [[HJResourceManager defaultManager] resourceKeyStringFromResourceQuery:resourceQuery];
+    NSDictionary *userInfo = notification.userInfo;
+    NSDictionary *resourceQuery = userInfo[HJResourceManagerParameterKeyResourceQuery];
+    NSString *resourceKey = [[HJResourceManager defaultHJResourceManager] resourceKeyStringFromResourceQuery:resourceQuery];
     if( [resourceKey isEqualToString:lookingResourceKey] == NO ) {
         return;
     }
-    HJResourceManagerRequestStatus status = (HJResourceManagerRequestStatus)[[userInfo objectForKey:HJResourceManagerParameterKeyRequestStatus] integerValue];
+    HJResourceManagerRequestStatus status = (HJResourceManagerRequestStatus)[userInfo[HJResourceManagerParameterKeyRequestStatus] integerValue];
     
     id dataObject;
     
     switch( status ) {
         case HJResourceManagerRequestStatusDownloadStarted :
-            objc_setAssociatedObject(self, &kAsyncDelivererIssuedId, [userInfo objectForKey:HJResourceManagerParameterKeyAsyncHttpDelivererIssuedId], OBJC_ASSOCIATION_RETAIN);
+            objc_setAssociatedObject(self, &kAsyncDelivererIssuedId, userInfo[HJResourceManagerParameterKeyAsyncHttpDelivererIssuedId], OBJC_ASSOCIATION_RETAIN);
             break;
         case HJResourceManagerRequestStatusLoaded :
             objc_setAssociatedObject(self, &kResourceManagerObserving, @(0), OBJC_ASSOCIATION_RETAIN);
             [[NSNotificationCenter defaultCenter] removeObserver:self name:HJResourceManagerNotification object:nil];
-            dataObject = [userInfo objectForKey:HJResourceManagerParameterKeyDataObject];
+            dataObject = userInfo[HJResourceManagerParameterKeyDataObject];
             if( [dataObject isKindOfClass:[UIImage class]] == YES ) {
                 self.image = (UIImage *)dataObject;
                 [self setNeedsLayout];
@@ -156,7 +156,7 @@ static char kContentLength;
 
 - (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName completion:(HJImageViewCompletionBlock)completion
 {
-    if( [urlString length] == 0 ) {
+    if( urlString.length == 0 ) {
         if( completion != nil ) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(nil, nil, remakerName, remakerParameter, cipherName, NO);
@@ -174,17 +174,17 @@ static char kContentLength;
         }
         return;
     }
-    [resourceQuery setObject:urlString forKey:HJResourceQueryKeyRequestValue];
-    if( [remakerName length] > 0 ) {
-        [resourceQuery setObject:remakerName forKey:HJResourceQueryKeyRemakerName];
+    resourceQuery[HJResourceQueryKeyRequestValue] = urlString;
+    if( remakerName.length > 0 ) {
+        resourceQuery[HJResourceQueryKeyRemakerName] = remakerName;
         if( remakerParameter != nil ) {
-            [resourceQuery setObject:remakerParameter forKey:HJResourceQueryKeyRemakerParameter];
+            resourceQuery[HJResourceQueryKeyRemakerParameter] = remakerParameter;
         }
     }
-    if( [cipherName length] > 0 ) {
-        [resourceQuery setObject:cipherName forKey:HJResourceQueryKeyCipherName];
+    if( cipherName.length > 0 ) {
+        resourceQuery[HJResourceQueryKeyCipherName] = cipherName;
     }
-    NSString *resourceKey = [[HJResourceManager defaultManager] resourceKeyStringFromResourceQuery:resourceQuery];
+    NSString *resourceKey = [[HJResourceManager defaultHJResourceManager] resourceKeyStringFromResourceQuery:resourceQuery];
     if( resourceKey == nil ) {
         self.image = nil;
         [self setNeedsLayout];
@@ -204,12 +204,12 @@ static char kContentLength;
         objc_setAssociatedObject(self, &kResourceManagerObserving, @(1), OBJC_ASSOCIATION_RETAIN);
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resourceManagerReport:) name:HJResourceManagerNotification object:nil];
     }
-    [[HJResourceManager defaultManager] resourceForQuery:resourceQuery cutInLine:cutInLine completion:^(NSDictionary *resultDict) {
+    [[HJResourceManager defaultHJResourceManager] resourceForQuery:resourceQuery cutInLine:cutInLine completion:^(NSDictionary *resultDict) {
         if( completion != nil ) {
-            NSString *resourceKey = [[HJResourceManager defaultManager] resourceKeyStringFromResourceQuery:[resultDict objectForKey:HJResourceManagerParameterKeyResourceQuery]];
+            NSString *resourceKey = [[HJResourceManager defaultHJResourceManager] resourceKeyStringFromResourceQuery:resultDict[HJResourceManagerParameterKeyResourceQuery]];
             NSString *lookingResourceKey = objc_getAssociatedObject(self, &kResourceKey);
             BOOL stillLooking = [lookingResourceKey isEqualToString:resourceKey];
-            id dataObject = [resultDict objectForKey:HJResourceManagerParameterKeyDataObject];
+            id dataObject = resultDict[HJResourceManagerParameterKeyDataObject];
             UIImage *image = ([dataObject isKindOfClass:[UIImage class]] == YES) ? (UIImage *)dataObject : nil;
             completion(image, urlString, remakerName, remakerParameter, cipherName, !stillLooking);
         }

@@ -9,29 +9,29 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^HJButtonCompletionBlock)(UIImage *image, NSString *urlString, NSString *remakerName, id remakerParameter, NSString *cipherName, BOOL targetChanged);
+typedef void(^HJButtonCompletionBlock)(UIImage * _Nullable image, NSString * _Nullable urlString, NSString * _Nullable remakerName, id _Nullable remakerParameter, NSString * _Nullable cipherName, BOOL targetChanged);
 
 @interface UIButton (HJResourceManager)
 
-- (void)setImageUrl:(NSString *)urlString;
-- (void)setImageUrl:(NSString *)urlString forState:(UIControlState)state;
-- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state;
-- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state;
-- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion;
-- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion;
-- (void)setImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion;
+- (void)setImageUrl:(NSString * _Nullable)urlString;
+- (void)setImageUrl:(NSString * _Nullable)urlString forState:(UIControlState)state;
+- (void)setImageUrl:(NSString * _Nullable)urlString placeholderImage:(UIImage * _Nullable)placeholderImage forState:(UIControlState)state;
+- (void)setImageUrl:(NSString * _Nullable)urlString placeholderImage:(UIImage * _Nullable)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state;
+- (void)setImageUrl:(NSString * _Nullable)urlString placeholderImage:(UIImage * _Nullable)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state completion:(HJButtonCompletionBlock _Nullable)completion;
+- (void)setImageUrl:(NSString * _Nullable)urlString placeholderImage:(UIImage * _Nullable)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString * _Nullable)remakerName remakerParameter:(id _Nullable)remakerParameter forState:(UIControlState)state completion:(HJButtonCompletionBlock _Nullable)completion;
+- (void)setImageUrl:(NSString * _Nullable)urlString placeholderImage:(UIImage * _Nullable)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString * _Nullable)remakerName remakerParameter:(id _Nullable)remakerParameter cipherName:(NSString * _Nullable)cipherName forState:(UIControlState)state completion:(HJButtonCompletionBlock _Nullable)completion;
 
-- (void)setBackgroundImageUrl:(NSString *)urlString;
-- (void)setBackgroundImageUrl:(NSString *)urlString forState:(UIControlState)state;
-- (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage forState:(UIControlState)state;
-- (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state;
-- (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion;
-- (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion;
-- (void)setBackgroundImageUrl:(NSString *)urlString placeholderImage:(UIImage *)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString *)remakerName remakerParameter:(id)remakerParameter cipherName:(NSString *)cipherName forState:(UIControlState)state completion:(HJButtonCompletionBlock)completion;
+- (void)setBackgroundImageUrl:(NSString * _Nullable)urlString;
+- (void)setBackgroundImageUrl:(NSString * _Nullable)urlString forState:(UIControlState)state;
+- (void)setBackgroundImageUrl:(NSString * _Nullable)urlString placeholderImage:(UIImage * _Nullable)placeholderImage forState:(UIControlState)state;
+- (void)setBackgroundImageUrl:(NSString * _Nullable)urlString placeholderImage:(UIImage * _Nullable)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state;
+- (void)setBackgroundImageUrl:(NSString * _Nullable)urlString placeholderImage:(UIImage * _Nullable)placeholderImage cutInLine:(BOOL)cutInLine forState:(UIControlState)state completion:(HJButtonCompletionBlock _Nullable)completion;
+- (void)setBackgroundImageUrl:(NSString * _Nullable)urlString placeholderImage:(UIImage * _Nullable)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString * _Nullable)remakerName remakerParameter:(id _Nullable)remakerParameter forState:(UIControlState)state completion:(HJButtonCompletionBlock _Nullable)completion;
+- (void)setBackgroundImageUrl:(NSString * _Nullable)urlString placeholderImage:(UIImage * _Nullable)placeholderImage cutInLine:(BOOL)cutInLine remakerName:(NSString * _Nullable)remakerName remakerParameter:(id _Nullable)remakerParameter cipherName:(NSString * _Nullable)cipherName forState:(UIControlState)state completion:(HJButtonCompletionBlock _Nullable)completion;
 
 - (void)cancel;
 
 @property (nonatomic, readonly) NSUInteger hjAsyncDelivererIssuedId;
-@property (nonatomic, strong) id hjButtonProgressView;
+@property (nonatomic, strong) id _Nullable hjButtonProgressView;
 
 @end
