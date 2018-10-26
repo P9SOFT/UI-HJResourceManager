@@ -175,6 +175,7 @@ static char kContentLength;
         return;
     }
     resourceQuery[HJResourceQueryKeyRequestValue] = urlString;
+    resourceQuery[HJResourceQueryKeyDataType] = @(HJResourceDataTypeImage);
     if( remakerName.length > 0 ) {
         resourceQuery[HJResourceQueryKeyRemakerName] = remakerName;
         if( remakerParameter != nil ) {
@@ -200,6 +201,7 @@ static char kContentLength;
         self.image = placeholderImage;
         [self setNeedsLayout];
     }
+    resourceQuery[HJResourceQueryKeyNotifyDeliverer] = @(self.hjImageProgressView != nil);
     if( [objc_getAssociatedObject(self, &kResourceManagerObserving) boolValue] == NO ) {
         objc_setAssociatedObject(self, &kResourceManagerObserving, @(1), OBJC_ASSOCIATION_RETAIN);
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resourceManagerReport:) name:HJResourceManagerNotification object:nil];

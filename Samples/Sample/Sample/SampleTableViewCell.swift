@@ -15,6 +15,17 @@ class SampleTableViewCell: UITableViewCell {
     @IBOutlet var urlLabel: UILabel!
     @IBOutlet var helloButton: UIButton!
     
+    var data:String? {
+        get {
+            return urlLabel.text
+        }
+        set {
+            urlLabel.text = newValue
+            thumbnailImageView.setImageUrl(newValue, placeholderImage:nil)
+            helloButton.setBackgroundImageUrl(newValue, placeholderImage:nil, for:.normal)
+        }
+    }
+    
     override func awakeFromNib() {
         
         helloButton?.layer.borderColor = UIColor.lightGray.cgColor

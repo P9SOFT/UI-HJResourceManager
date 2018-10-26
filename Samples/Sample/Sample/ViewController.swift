@@ -10,9 +10,11 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    @IBOutlet var imageListTableView:UITableView!
+    
     fileprivate var imageList:[String] = []
+    fileprivate let cellIdentifier = "sampleCell"
+    
+    @IBOutlet var imageListTableView:UITableView!
     
     override func viewDidLoad() {
         
@@ -21,8 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         for _ in 0  ..< 32  {
             imageList.append("http://www.p9soft.com/images/sample.jpg")
         }
-        let nibName = UINib(nibName:"SampleTableViewCell", bundle:nil)
-        self.imageListTableView.register(nibName, forCellReuseIdentifier:"sampleCell")
+        self.imageListTableView.register(UINib(nibName:"SampleTableViewCell", bundle:nil), forCellReuseIdentifier:cellIdentifier)
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,10 +43,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell:SampleTableViewCell = self.imageListTableView.dequeueReusableCell(withIdentifier: "sampleCell")! as! SampleTableViewCell
-        cell.urlLabel.text = self.imageList[indexPath.row]
-        cell.thumbnailImageView?.setImageUrl(self.imageList[indexPath.row], placeholderImage:nil)
-        cell.helloButton.setBackgroundImageUrl(self.imageList[indexPath.row], placeholderImage:nil, for:UIControlState())
+        let cell:SampleTableViewCell = self.imageListTableView.dequeueReusableCell(withIdentifier: cellIdentifier)! as! SampleTableViewCell
+        cell.data = self.imageList[indexPath.row]
         return cell
     }
     
