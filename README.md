@@ -27,7 +27,7 @@ Hydra.default().startAllWorkers()
 
 # Download and Display
 
-Ue+HJResourceManager support extension for UIImageView and UIButton to downloading and display image.
+Ue+HJResourceManager support extension for UIImageView and UIButton to downloading and display image.  
 Here is simple example to download and display image by give resource url to UIImageView and UIButton.
 
 ```swift
@@ -35,7 +35,7 @@ imageView.setImageUrl(imageUrlString)
 imageButton.setBackgroundImageUrl(imageUrlString)
 ```
 
-Basically, you do download and display image like above example.
+Basically, you do download and display image like above example.  
 But you can do more handling with it.
 
 Using placeholder image when downloading.
@@ -44,9 +44,9 @@ Using placeholder image when downloading.
 imageView.setImageUrl(imageUrlString, placeholderImage: placeholderImage)
 ```
 
-Imagine that, you call many many images at the same time and it take some time, like working on the tableview cells, and scrolling down.
-It is ugly that you waiting to see the images for last visible cell until downloading done of previous upper images.
-You can change the order downloading by using cutInLine flag to true.
+Imagine that, you call many many images at the same time and it take some time, like working on the tableview cells, and scrolling down.  
+It is ugly that you waiting to see the images for last visible cell until downloading done of previous upper images.  
+You can change the order downloading by using cutInLine flag to true.  
 
 ```swift
 imageView.setImageUrl(imageUrlString, placeholderImage: nil, cutInLine: true)
@@ -62,13 +62,13 @@ imageView.setImageUrl(imageUrlString, placeholderImage: nil, cutInLine: true) { 
 }
 ```
 
-Here is parameters of completion means,
-'image' is UIImage object from downloaded data.
-'urlString' is url string of resource when it called.
-'remakerName' is used remaker name when it called.
-'remakerParameter' is used remaker parameter object when it called.
-'cipherName' is used cipher name when it called.
-'targetChanged' is check flag that setted resource currently is different with downloaded resource.
+Here is parameters of completion means,  
+'image' is UIImage object from downloaded data.  
+'urlString' is url string of resource when it called.  
+'remakerName' is used remaker name when it called.  
+'remakerParameter' is used remaker parameter object when it called.  
+'cipherName' is used cipher name when it called.  
+'targetChanged' is check flag that setted resource currently is different with downloaded resource.  
 
 UI+HJResourceManager based on HJResourceManager, so you can use remaker and cipher mechanism of it.
 
@@ -99,17 +99,17 @@ Design any progress view as you wish, and confirm protocol HJProgressViewProtoco
 
 Let's take a look around one by one.
 
-hjProgressViewConnected function called after connection, it give you sender view and content length of file length to download.
-You can update the display interface of amount range by referencing content length.
+'hjProgressViewConnected' function called after connection, it give you sender view and content length of file length to download.  
+You can update the display interface of amount range by referencing content length.  
 
-hjProgressViewTransfering function called when transfering every chunk, it give you sender view, transfer length and content length.
-You can update the display interface of progressing by referencing transfer length and content length.
+'hjProgressViewTransfering' function called when transfering every chunk, it give you sender view, transfer length and content length.  
+You can update the display interface of progressing by referencing transfer length and content length.  
 
-hjProgressViewTransferDone, hjProgressViewTransferFailed, hjProgressViewTransferCanceled function called after transfering done, failed and cancel for each case.
+'hjProgressViewTransferDone', 'hjProgressViewTransferFailed', 'hjProgressViewTransferCanceled' functions called after transfering done, failed and cancel for each case.  
 
-You can control your progress GUI by implement theses protocol to your own progress view.
-After then, just set it to UIView or UIButton.
-UI+HJResourceManager library will call protocol functions as their purpose, automatically.
+You can control your progress GUI by implement theses protocol to your own progress view.  
+After then, just set it to UIView or UIButton.  
+UI+HJResourceManager library will call protocol functions as their purpose, automatically.  
 
 ```swift
 imageView.hjImageProgressView = customProgressView
